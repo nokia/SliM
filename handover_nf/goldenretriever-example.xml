@@ -1,0 +1,8 @@
+<!--Runtime configuration file for SliM service -->
+<xml>
+  <ignoremacs />
+  <interface address="52:54:00:05:74:73" />
+  <interface address="52:54:00:05:74:74" />
+  <mac-filter-fix enabled="false" />
+</xml>
+

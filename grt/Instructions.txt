@@ -1,0 +1,33 @@
+
+Required: libxml-dev
+
+Assuming <yourapp> is the root dir of your app.
+
+===== Get DPDK
+
+Required packages for Ubuntu to install DPDK: libpcap-dev gcc libc6-dev libxml2-dev (DO NOT INSTALL libc6-dev-amd64, installs i386 for some reason...)
+
+Download DPDK sources to <DPDK>.
+
+# Is the following necessary????:
+# Add the -fPIC option in <DPDK>/mk/target/generic/rte.vars.mk:
+# -CFLAGS += $(TARGET_CFLAGS)
+# +CFLAGS += $(TARGET_CFLAGS) -fPIC
+
+Change config/common_linuxapp:
+
+CONFIG_RTE_BUILD_SHARED_LIB=y
+CONFIG_RTE_BUILD_COMBINE_LIBS=y
+This way, a libdpdk.so is created under <DPDK>/x86_64-native-linuxapp-gcc/lib/.
+
+Build the DPDK with:
+make install T=x86_64-native-linuxapp-gcc
+
+Go to the directory grt/.
+Change RTE_SDK and RTE_TARGET in the Makefile accordingly.
+Hit "make".
+
+Go to the directory <yourapp>/.
+Change RTE_SDK and RTE_TARGET in the Makefile accordingly.
+Hit "make".
+
