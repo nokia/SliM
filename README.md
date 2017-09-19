@@ -20,7 +20,7 @@ See INSTALL.md for more information on installation.
 
 For more detailed instructions, follow instructions in the subfolders and files.
 
-###ctrl (OpenFlow-based datapath controller)
+### ctrl (OpenFlow-based datapath controller)
 
 Required: ryu
 
@@ -58,3 +58,7 @@ Contains finalize.py and some gnuplot scripts.
 finalize.py must be adapted to the selected evaluation configuration in orch.py
 After running it, resulting CSV records can be plotted with Gnuplot and the scripts in posteval/plotting.
 
+
+## Further references
+
+Early version of a PPPoE network function compatible with SliM: https://github.com/tudps/slim-pppoe (GPLv3-licensed)
