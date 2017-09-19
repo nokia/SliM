@@ -61,4 +61,4 @@ After running it, resulting CSV records can be plotted with Gnuplot and the scri
 
 ## Further references
 
-Early version of a PPPoE network function compatible with SliM: https://github.com/tudps/slim-pppoe (GPLv3-licensed)
+Early version of a PPPoE concentrator compatible with SliM: https://github.com/tudps/slim-pppoe (GPLv3-licensed)
