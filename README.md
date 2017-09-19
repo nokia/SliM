@@ -5,6 +5,8 @@ applications using it.
 Note that the current SliM implementation version is **experimental software** and not yet intended for productive usage.
 SliM is distributed software, so we have several components which must be built and installed separately.
 
+In the code, you will sometimes find the abbreviation *grt*, which has been a codename abbreviation of SliM.
+
 ### About the directories:
 
 - *grt:* Core of the SliM depending on DPDK. NF implementations (like nat_nf or handover_nf) depend on this module.
@@ -33,6 +35,10 @@ Start ryu with ctrl/fwd.py as the Ryu app
 
 Start controller_rest.py in a separate process, which will spawn a command line to manually migrate VMs (for testing), and also expose a web service
 which can be used by higher-layer controllers.
+
+### slim-ofdpa (OF-DPA-based datapath controller for SliM, which can be deployed on bare-metal switches for best performance).
+
+If used, it replaces ctrl/fwd.py. Refer to slim-ofdpa/README.txt for more info.
 
 ### grt (Core SliM files)
 
