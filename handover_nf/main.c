@@ -167,7 +167,6 @@ int _prepare_normal_ipv4(struct rte_mbuf* packet, struct ipv4_hdr* ip_hdr, struc
 
 
 //Handles an incoming IPv4 packet.
-//Returns < 0 if packet was not relayed and must be freed.
 int handle_ipv4(uint16_t vlan_offset, struct rte_mbuf* packet, uint8_t grt_if_id) {
 
 	struct ether_hdr* eth_hdr = rte_pktmbuf_mtod_offset(packet, struct ether_hdr*, 0);
@@ -335,7 +334,6 @@ int handle_packet(struct ether_hdr* l2hdr, struct rte_mbuf* packet, uint8_t grt_
 	
 	      uint8_t grt_if_2snd = (grt_if_id == 1)?0:1;
 	      
-	      //TODO: Relay everything that is not IPv4
 	      struct grt_interface_info* if_info = grt_getInterfaceInfo(grt_if_2snd);
 	      struct rte_mbuf* pkt2send_buf [1];
 	      pkt2send_buf[0] = packet;	//TODO can this be made in bulks????
