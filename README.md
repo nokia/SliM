@@ -11,7 +11,7 @@ In the code, you will sometimes find the abbreviation *grt*, which has been a co
 
 - *grt:* Core of the SliM depending on DPDK. NF implementations (like nat_nf or handover_nf) depend on this module.
 - *nat_nf:* NAT network function using SliM, installed in a VM or on a bare-metal device.
-- *handover_nf:* Simple packet gatways example network function using SliM, installed in a VM or on a bare-metal device.
+- *handover_nf:* Simple mobile packet gateway example NF function using SliM, installed in a VM or on a bare-metal device.
 - *ctrl:* Python/Ryu-based controller for managing SliM-based network functions in an OpenFlow network.
 - *lgen:* Load generator tools that can be used to evaluate the network functions and the SliM migration process.
 - *posteval:* Post-evaluation tools (aggregation, plotting etc.)
@@ -36,7 +36,7 @@ Start ryu with ctrl/fwd.py as the Ryu app
 Start controller_rest.py in a separate process, which will spawn a command line to manually migrate VMs (for testing), and also expose a web service
 which can be used by higher-layer controllers.
 
-### slim-ofdpa (OF-DPA-based datapath controller for SliM, which can be deployed on bare-metal switches for best performance).
+### slim-ofdpa (OF-DPA-based datapath controller for SliM, which can be deployed on bare-metal switches supporting it).
 
 If used, it replaces ctrl/fwd.py. Refer to slim-ofdpa/README.txt for more info.
 

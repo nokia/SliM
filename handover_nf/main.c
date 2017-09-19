@@ -1,6 +1,17 @@
+/*
+Simple mobile packet gateway NF which maintains current cell associations as a state.
+When a client switches cells, the client announces this to the PG in a packet 
+header and the NF keeps track of it, so that returning packets from the core network 
+are directed to the respective cell.
+
+Intended as a simple example of a NF using SliM for testing its quick reaction to
+time-critical events. Can be used as a template for implementing more NFs.
+
+This implementation makes use of the GRT redirect table, which has built-in support
+for statelet announcement/installation.
+*/
+
 #include <stdio.h>
-
-
 #include <rte_config.h>
 #include <rte_common.h>
 #include <rte_byteorder.h>
@@ -87,6 +98,7 @@ void memPrintHex(void* start, char* preamble, char* postamble, uint32_t len) {
 	printf("%s", postamble);
 }
 
+// Prints out the state of the hash table, just for debugging.
 void fancyDumpState() {
 	int32_t iter = 0;
 	int32_t return_val;
@@ -105,6 +117,8 @@ void fancyDumpState() {
 
 }
 
+//Obtains the current association entry for the client. If it 
+//needs to be changed, a new statelet is created.
 int _getWrAssocEntryFromIntPacket(cellassoc_value** resultEntry, cellassoc_key* key, in_packet_info_t* payload) {
 
 	int retrn = grt_redirect_table_get(cellassoc_table, (void*)key, (void**)resultEntry, 0);
@@ -152,6 +166,7 @@ int _prepare_normal_ipv4(struct rte_mbuf* packet, struct ipv4_hdr* ip_hdr, struc
 }
 
 
+//Handles an incoming IPv4 packet.
 //Returns < 0 if packet was not relayed and must be freed.
 int handle_ipv4(uint16_t vlan_offset, struct rte_mbuf* packet, uint8_t grt_if_id) {
 
@@ -339,6 +354,7 @@ int handle_packet(struct ether_hdr* l2hdr, struct rte_mbuf* packet, uint8_t grt_
 
 }
 
+//Packs the current state for sending it via the SliM snapshot stream.
 int handle_snapshot_out() {
 
 	grt_redirect_set_snap_state(cellassoc_table, GRT_RT_S_SNAPSHOTTING);
@@ -379,7 +395,8 @@ int handle_snapshot_out() {
 
 }
 
-//This is guranteed not to interrupt the snapshot install processs.
+//Called whenever a statelet has been received which must be installed.
+//SliM guarantees this is not interrupted by the snapshot install process or packet-in events.
 int handle_state_update(uint16_t type, void* stupd_vec, uint16_t len) {
 
 	if (type == GRT_STATELET_TYPE_NEW_HANDOVER) {
