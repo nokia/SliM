@@ -1,0 +1,16 @@
+{
+	"ext" : {
+		"mgmt" : 3,
+		"dp_ports" :  [4,1],
+		"mgmt_macs" : ["f4:52:14:76:6d:e0"]
+	},
+	"vms" : {
+		"vm0" : { "id" : 10, "port" : 49, "vlan_shift" : 0, "mgmt_macs" : ["52:54:00:1a:d5:12"]},
+		"vm1" : { "id" : 11, "port" : 49, "vlan_shift" : 10, "mgmt_macs" : ["52:54:00:1a:d5:16"]}
+	},
+	"vlan_base" : 1311	
+}
+
+
+
+
